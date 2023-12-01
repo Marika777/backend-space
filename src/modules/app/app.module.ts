@@ -2,10 +2,12 @@ import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { ConfigModule, ConfigService } from "@nestjs/config";
-import { UsersModule } from 'src/users/users.modules';
+import { UsersModule } from 'src/modules/users/users.module';
 import { SequelizeModule } from '@nestjs/sequelize';
-import configurations from '../configurations';
+import configurations from '../../configurations';
 import { User } from "../users/models/user.model";
+import { AuthModule } from '../auth/auth.module';
+import { TokenModule } from '../token/token.module';
 
 @Module({
   imports: [ConfigModule.forRoot({
@@ -27,7 +29,10 @@ import { User } from "../users/models/user.model";
         models:[User]
       })
     }),
-    UsersModule],
+    UsersModule,
+    AuthModule,
+    TokenModule
+  ],
   controllers: [AppController],
   providers: [AppService],
 })
